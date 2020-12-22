@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Users = () => {
-  const [users, setUsers] = useState([]);
+const Users = ({ users }) => {
+  // Client Side Render
 
-  const fetchUsers = async () => {
-    const response = await axios.get(
-      "https://jsonplaceholder.typicode.com/users"
-    );
-    const data = await response.data;
+  //  const [users, setUsers] = useState([]);
 
-    setUsers(data);
-  };
+  //  const fetchUsers = async () => {
+  //    const response = await axios.get(
+  //      "https://jsonplaceholder.typicode.com/users"
+  //    );
+  //    const data = await response.data;
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  //    setUsers(data);
+  //  };
 
-  console.log(users);
+  //  useEffect(() => {
+  //    fetchUsers();
+  //  }, []);
 
   return (
     <div>
@@ -27,5 +27,16 @@ const Users = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(context) {
+  const response = await axios.get(
+    "https://jsonplaceholder.typicode.com/users"
+  );
+  const data = await response.data;
+
+  return {
+    props: { users: data },
+  };
+}
 
 export default Users;
