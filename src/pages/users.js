@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Link from "next/link";
 
 const Users = ({ users }) => {
   // Client Side Render
@@ -22,7 +23,9 @@ const Users = ({ users }) => {
   return (
     <div>
       {users.map((user) => (
-        <div>{user.name}</div>
+        <Link href="/profile/[id]" as={`/profile/${user.id}`}>
+          <a>{user.name}</a>
+        </Link>
       ))}
     </div>
   );
